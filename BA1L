@@ -15,3 +15,6 @@ def PatternToNumber(pattern):
   symbol=pattern[-1]
   prefix=pattern[:-1]
   return 4*PatternToNumber(prefix)+symbolToNumber(symbol)
+  
+
+print(PatternToNumber("CGACATGCCGAGGGCCGGGGCCCCAGTA"))
