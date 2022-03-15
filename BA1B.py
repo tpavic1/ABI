@@ -15,7 +15,6 @@ def MostFrequentKmers(text,k):
   
   return most_freq
 
-
 ### ispis
 
 sample_=''
