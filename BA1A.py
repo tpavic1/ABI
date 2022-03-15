@@ -5,6 +5,8 @@ def PatternCount(text,pattern):
       count+=1
   return count
 
+### ispis
+
 sample_=''
 sample=sample_.splitlines()
 
