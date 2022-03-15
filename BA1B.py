@@ -1,15 +1,29 @@
-def Fja(k,text):
-  d={}
-  for i in range(((len(text)-k)+1)):
-    k_ric=text[i:i+k]
-    if(k_ric in d.keys()):
-      d[k_ric]=d[k_ric]+1
+def MostFrequentKmers(text,k):
+  freq={}
+  for i in range(len(text)-k+1):
+    kmer=text[i:(i+k)]
+    if (kmer not in freq.keys()):
+      freq[kmer]=1
     else:
-      d[k_ric]=1
+      freq[kmer]+=1
   
-  all_values = d.values()
-  max_value = max(all_values)
+  max_value=max(freq.values())
+  most_freq=[]
+  for key in freq:
+    if (freq[key]==max_value):
+      most_freq.append(key)
+  
+  return most_freq
 
-  for key in d.keys():
-    if(d[key]==max_value):
-      print(key)
+
+### ispis
+
+sample_=''
+sample=sample_.splitlines()
+text=sample[0]
+k=int(sample[1])
+
+lista=MostFrequentKmers(text,k)
+
+ros=" ".join(lista)
+print(ros)
