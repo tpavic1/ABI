@@ -8,7 +8,7 @@ def Complement(letter):
   else:
     return "A"
   
-  def ReverseComplement(pattern):
+def ReverseComplement(pattern):
   comp=list(pattern)
   for i in range(len(pattern)):
     comp[i]=Complement(pattern[i])
