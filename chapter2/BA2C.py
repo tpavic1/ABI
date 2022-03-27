@@ -34,7 +34,6 @@ def ProfileKmer(text,k,profile):
 ### ispis
 
 sample_=''''''
-
 sample=sample_.splitlines()
 text=sample[0]
 k=int(sample[1])
