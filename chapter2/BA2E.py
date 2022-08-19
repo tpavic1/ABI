@@ -41,15 +41,15 @@ def FormPseudoCount(motifs):
     return count
 
 def FormProfileFromPseudoCount(count, numOfMotifs):
-    return [list(map(lambda x: x/numOfMotifs, row)) for row in count]
+    return [list(map(lambda x: x/(numOfMotifs+4), row)) for row in count]
 
-def FormScoreFromCount(count):
+def FormScoreFromPseudoCount(count):
     cols=len(count[0])
     score=0
     for j in range(cols):
         col=[count[0][j], count[1][j], count[2][j], count[3][j]]
         maxValue=max(col)
-        colScore=sum(col)-maxValue
+        colScore=sum(col)-maxValue-3
         score+=colScore
     return score
 
@@ -62,10 +62,10 @@ def GreedyMotifSearchWithPseudocounts(Dna, k, t):
         motifs[0]=kmer
         for j in range(1,t):
             count=FormPseudoCount(motifs[:j])
-            profile=FormProfileFromPseudoCount(count, j+4)
+            profile=FormProfileFromPseudoCount(count, j)
             motifJ=ProfileMostProbableKmer(Dna[j], profile, k)
             motifs[j]=motifJ
-        if FormScoreFromCount(FormPseudoCount(motifs))<FormScoreFromCount(FormPseudoCount(bestMotifs)):
+        if FormScoreFromPseudoCount(FormPseudoCount(motifs))<FormScoreFromPseudoCount(FormPseudoCount(bestMotifs)):
             bestMotifs=[x for x in motifs]
 
     return bestMotifs
