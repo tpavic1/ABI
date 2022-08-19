@@ -70,7 +70,7 @@ def RandomizedMotifSearchOneIteration(Dna, k, t):
 def RandomizedMotifSearch(Dna, k, t):
     bestMotifs=RandomizedMotifSearchOneIteration(Dna, k, t)
     for i in range(1, 1000):
-        motifs = RandomizedMotifSearchAtom(Dna, k, t)
+        motifs = RandomizedMotifSearchOneIteration(Dna, k, t)
         if FormScoreFromPseudoCount(FormPseudoCount(motifs)) < FormScoreFromPseudoCount(FormPseudoCount(bestMotifs)):
             bestMotifs = [motif for motif in motifs]
     return bestMotifs
@@ -85,3 +85,4 @@ Dna=sample[1:]
 res=RandomizedMotifSearch(Dna, k, t)
 for r in res:
     print(r)
+    
