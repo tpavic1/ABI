@@ -7,38 +7,21 @@ def Complement(letter):
     return "C"
   else:
     return "A"
-  
-def ReverseComplement(pattern):
-  complement=[]
-  for n in pattern[::-1]:
-    complement.append(Complement(n))
 
-  return "".join(complement)
+def ReverseComplement(dna):
+    complement=[Complement(n) for n in dna]
+    return "".join(complement[::-1])
 
-
-def RnaToDna(rna):
-    dna_list=[]
-    for i in range(len(rna)):
-        if(rna[i]=="U"):
-            dna_list.append("T")
+def DnaToRna(dna):
+    rna=""
+    for n in dna:
+        if n=="T":
+            rna+="U"
         else:
-            dna_list.append(rna[i])
+            rna+=n
+    return rna
 
-    return "".join(dna_list)
-
-def DnaToRna(rna):
-    dna_list=[]
-    for i in range(len(rna)):
-        if(rna[i]=="T"):
-            dna_list.append("U")
-        else:
-            dna_list.append(rna[i])
-
-    return "".join(dna_list)
-
-
-def PeptideEncoding(dna,peptide):
-
+def ProteinTranslation(pattern):
     genetic_code = {
         "AAA": "K",
         "AAC": "N",
@@ -105,45 +88,41 @@ def PeptideEncoding(dna,peptide):
         "UUG": "L",
         "UUU": "F",
     }
+    peptide=""
+    for i in range(0,len(pattern)-3+1,3):
+        codon=pattern[i:i+3]
+        if(codon=="UAA" or codon=="UAG" or codon=="UGA"):
+            break
+        peptide+=genetic_code[codon]
+    return peptide
 
-    substring_len=len(peptide)*3
-    res=[]
+def PeptideEncoding(dna, peptide):
+    substrings=[]
+    lenSubstring=len(peptide)*3
     
-    rna=DnaToRna(dna)
+    for i in range(len(dna)-lenSubstring+1):
+        substring=dna[i:i+lenSubstring]
+        complement=ReverseComplement(substring)
+        
+        substringRna=DnaToRna(substring)
+        complementRna=DnaToRna(complement)
+        
+        substringProtein=ProteinTranslation(substringRna)
+        complementProtein=ProteinTranslation(complementRna)
+        
+        if (substringProtein==peptide or complementProtein==peptide):
+            substrings.append(substring)
+            
+    return substrings
 
-    for i in range(len(dna)-substring_len+1):
-        substring1=rna[i:i+substring_len]
-        substring2=DnaToRna(ReverseComplement(dna[i:i+substring_len]))
-
-        peptide1=""
-        peptide2=""
-        for j in range(0,substring_len,3):
-            codon1=substring1[j:j+3]
-            codon2=substring2[j:j+3]
-
-            peptide1+=genetic_code[codon1]
-            peptide2+=genetic_code[codon2]
-
-        if(peptide1==peptide):
-            res.append(RnaToDna(substring1))
-        if(peptide2==peptide):
-            res.append(RnaToDna(substring1))
-    
-    return res
-  
-  
 ### ispis
-  
+
 sample_=''''''
 sample=sample_.splitlines()
 dna=sample[0]
 peptide=sample[1]
 
-res=PeptideEncoding(dna,peptide)
-
+res=PeptideEncoding(dna, peptide)
 for r in res:
     print(r)
-    
-    
-    
     
