@@ -1,4 +1,4 @@
-def ProteinTranslation(sample):
+def ProteinTranslation(pattern):
     genetic_code = {
         "AAA": "K",
         "AAC": "N",
@@ -65,19 +65,17 @@ def ProteinTranslation(sample):
         "UUG": "L",
         "UUU": "F",
     }
+    peptide=""
+    for i in range(0,len(pattern)-3+1,3):
+        codon=pattern[i:i+3]
+        if(codon=="UAA" or codon=="UAG" or codon=="UGA"):
+            break
+        peptide+=genetic_code[codon]
+    return peptide
 
-    protein=""
-   
-    for i in range(0,len(sample),3):
-        codon=sample[i:i+3]
-        protein+=genetic_code[codon]
-    
-    return protein[:-1]
-  
-  
-  ### ispis
-  
-  sample=''''''
-print(ProteinTranslation(sample))
-  
+### ispis
+
+pattern=''''''
+print(ProteinTranslation(pattern))
+
   
