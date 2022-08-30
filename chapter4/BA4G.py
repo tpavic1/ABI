@@ -28,7 +28,7 @@ def Mass(peptide):
     return sum(peptide)
 
 def CycloSpectrum(peptide):
-    cyclo=[0]
+    cyclo=[0, sum(peptide)]
     extended=peptide+peptide[:-1]
 
     for i in range(len(peptide)):
