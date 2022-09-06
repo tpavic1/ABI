@@ -1,34 +1,43 @@
-def k_reversal(P,k):
-
-    if("+"+str(k+1) in P):
-        ind2=P.index("+"+str(k+1))
+def IndexOf(permutation, num):
+    if(num in permutation):
+        return permutation.index(num)
     else:
-        ind2=P.index("-"+str(k+1))
+        return permutation.index(-num)
 
-    P=P[:k]+[ "+"+s[1:]  if s[0]=="-" else "-"+s[1:] for s in P[k:(ind2+1)] ][::-1]+P[(ind2+1):]
+def MapToString(P):
+    mapped=[]
+    for p in P:
+        if p<0:
+            mapped.append(str(p))
+        else:
+            mapped.append("+"+str(p))
+    return mapped
 
-    return P
+def GreedySorting(P):
+    reversal=[]
 
-def GredySearch(P):
-    sequence=[]
     for k in range(len(P)):
-        if P[k]!=("+"+str(k+1)):
-            P=k_reversal(P,k)
-            sequence.append(P)
+        if P[k]!=(k+1):
+            index=IndexOf(P, k+1)
+            if index==(len(P)-1):
+                P=P[:k]+[-p for p in P[k:index+1][::-1]]
+                reversal.append(MapToString(P))
+            else:
+                P=P[:k]+[-p for p in P[k:index+1][::-1]]+P[index+1:]
+                reversal.append(MapToString(P))
 
-            if(P[k]=="-"+str(k+1)):
-                P=P[:k]+["+"+str(k+1)]+P[(k+1):]
-                sequence.append(P)
+            if P[k]==(-(k+1)):
+                P[k]=k+1
+                reversal.append(MapToString(P))
+        
+    return reversal
 
-    return sequence
-  
-  
+
 ### ispis
 
-sample=''
-P=sample[1:-1].split(" ")
+sample=''''''
+P=list(map(int,sample[1:-1].split(" ")))
+res=GreedySorting(P)
 
-ros=GredySearch(P)
-for r in ros:
-    text="("+" ".join(r)+")"
-    print(text)
+for r in res:
+    print("("+" ".join(r)+")")
