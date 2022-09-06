@@ -19,13 +19,8 @@ def GreedySorting(P):
     for k in range(len(P)):
         if P[k]!=(k+1):
             index=IndexOf(P, k+1)
-            if index==(len(P)-1):
-                P=P[:k]+[-p for p in P[k:index+1][::-1]]
-                reversal.append(MapToString(P))
-            else:
-                P=P[:k]+[-p for p in P[k:index+1][::-1]]+P[index+1:]
-                reversal.append(MapToString(P))
-
+            P=P[:k]+[-p for p in P[k:index+1][::-1]]+P[index+1:]
+            reversal.append(MapToString(P))
             if P[k]==(-(k+1)):
                 P[k]=k+1
                 reversal.append(MapToString(P))
