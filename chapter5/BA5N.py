@@ -4,12 +4,6 @@ def HasIncomingEdges(node, graph):
             return True
     return False
 
-def HasEdges(graph):
-    for key in graph:
-        if(len(graph[key])>0):
-            return True
-    return False
-
 def TopologicalOrdering(graph, candidates):
     lista=[]
 
